@@ -122,3 +122,7 @@ class CloudDrive {
     return content;
   }
 }
+
+// Load the tokens and API stuff from the .env file
+const dotenv = require('dotenv');
+dotenv.config();
