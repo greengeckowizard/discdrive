@@ -1,16 +1,19 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as discord from 'discord.js';
+// Import modules
+const express = require('express');
+const bodyParser = require('body-parser');
+const discord = require('discord.js');
 
+// Create an Express app
 const app = express();
 
+// Use body parser to parse JSON requests
 app.use(bodyParser.json());
 
 // Create a Discord client
 const client = new discord.Client();
 
 // When the client is ready, start the cloud drive
-client.on('ready', () => {
+client.on('ready', async () => {
   // Create a new cloud drive
   const drive = new CloudDrive();
 
@@ -53,8 +56,7 @@ client.on('ready', () => {
 
 // Start the server
 app.listen(3000, () => {
-  console.log('Cloud drive is running on port 
-3000.');
+  console.log('Cloud drive is running on port 3000.');
 });
 
 // Cloud drive class
@@ -63,6 +65,7 @@ class CloudDrive {
     this.files = {};
   }
 
+  // List the files in the current directory
   listFiles(path) {
     // Check if the path is valid
     if (!path) {
@@ -78,6 +81,7 @@ class CloudDrive {
     return files;
   }
 
+  // Change the current directory
   changeDirectory(path) {
     // Check if the path is valid
     if (!path) {
@@ -88,6 +92,7 @@ class CloudDrive {
     this.currentDirectory = path;
   }
 
+  // Upload a file in chunks
   uploadFile(filename, content, chunkSize) {
     // Check if the filename is valid
     if (!filename) {
@@ -105,6 +110,7 @@ class CloudDrive {
     }
   }
 
+  // Download a file
   downloadFile(filename) {
     // Check if the filename is valid
     if (!filename) {
